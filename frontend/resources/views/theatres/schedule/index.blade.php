@@ -30,10 +30,18 @@
 			            </div>
 			            <div class="row">
 			                <div class="col-lg-4">
-			                    <label for="labelBranch">Dates : </label>    
+			                    <label for="endDate">Start Date : </label>    
 			                </div>
 			                <div class="col-lg-8">
-			                    <label for="showDates">{{ $schedule->dates }}</label>    
+			                    <label for="startDate">{{ $schedule->startdate }}</label>    
+			                </div>
+			            </div>
+			            <div class="row">
+			                <div class="col-lg-4">
+			                    <label for="endDate">End Date : </label>    
+			                </div>
+			                <div class="col-lg-8">
+			                    <label for="endDate">{{ $schedule->enddate }}</label>    
 			                </div>
 			            </div>
 			            <div class="row">

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Session;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 
 class HomeController extends Controller
 {
@@ -60,7 +63,6 @@ class HomeController extends Controller
         	$movie = json_decode($response2->getBody());
 
 
-
         if ($theatre_id == 1) {
         	
         	return view('checkout', compact('theatres', 'movie'));
@@ -71,9 +73,19 @@ class HomeController extends Controller
 
         	$response3 = $client3->get('http://localhost:3000/api/theatres/' . $theatre_id . '/schedule');
 
-        		$schedules = json_decode($response3->getBody());	
+        		$schedules = json_decode($response3->getBody());
+
+            foreach($schedules as $schedule){
+
+                $begin = new DateTime($schedule->startdate);
+                $end = new DateTime($schedule->enddate);
+                $end = $end->modify( '+1 day' );
+
+                $interval = new DateInterval('P1D');
+                $daterange = new DatePeriod($begin, $interval ,$end);
+            }	
         
-        	return view('checkout', compact('theatres', 'theatre', 'movie', 'schedules'));
+        	return view('checkout', compact('theatres', 'theatre', 'movie', 'schedules', 'daterange'));
         }
         
 

@@ -36,7 +36,7 @@
                      <label for="inputStartDate" class="sr-only">Start Date</label>
                     <!-- http://www.daterangepicker.com/#example4 -->
                     <div class="input-group mb-2">
-                        <input type="text" value="{{ isset($movie) ? date_format(date_create($movie->release_date),'m/d/Y') : '' }}" name="startDate" placeholder="Select start date..." class="form-control" disabled />
+                        <input type="text" value="{{ isset($movie) ? date_format(date_create($movie->release_date),'m/d/Y') : '' }}" name="startDate" placeholder="Select start date..." class="form-control"/>
                     
                         <div class="input-group-append">
                             <label class="input-group-text" for="inputGroupStartDate">Start Date</label>

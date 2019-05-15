@@ -366,7 +366,8 @@ class TheatresController extends Controller
         $response = $client->post("http://localhost:3000/api/theatres/" . $theatre_id . "/schedule", [
             'json' => [
                     "movie_id" => $request->movie_id,
-                    "dates" => $request->showdates,
+                    "startdate" => $request->startDate,
+                    "enddate" => $request->endDate,
                     "status" => $request->status
                 ],
 

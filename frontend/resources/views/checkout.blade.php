@@ -56,13 +56,14 @@
 			        </form>
 			    </div>
 			    <div class="col-lg-4">
+
 				    <label for="inputDate" class="sr-only">Date</label>
 			        <div class="input-group mb-2">
 			            <select class="custom-select" id="inputGroupSelectDate" name="date">
 			                <option disabled selected>Select Date</option>
 			                @if(!empty($schedules))
-				                @foreach($schedules as $schedule)
-				                	<option value="{{ $theatre->_id }}">{{ $schedule->dates }}</option>
+				                @foreach($daterange as $date)
+				                	<option value="{{ $theatre->_id }}">{{ $date->format("m-d-Y") }}</option>
 				                @endforeach
 			                @endif
 			            </select>
@@ -77,8 +78,8 @@
 			            <select class="custom-select" id="inputGroupSelectTime" name="time">
 			                <option disabled selected>Select Time</option>
 			                @if(!empty($schedules))
-				                @foreach($schedules as $schedule)
-				                	<option value="{{ $theatre->_id }}">{{ $schedule->dates }}</option>
+				                @foreach($daterange as $date)
+				                	<option value="{{ $theatre->_id }}">{{ $date->format("Ymd") }}</option>
 				                @endforeach
 			                @endif
 			            </select>

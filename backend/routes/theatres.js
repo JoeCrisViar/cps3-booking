@@ -110,7 +110,8 @@ router.post('/:id/schedule', auth, async (req, res) => {
 
 	theatre.schedules.push({
 		movie_id: req.body.movie_id,
-		dates: req.body.dates,
+		startdate: req.body.startdate,
+		enddate:req.body.enddate,
 		status: req.body.status
 
 	});
@@ -175,7 +176,8 @@ router.put('/:t_id/schedule/:s_id', [auth, admin], async (req, res) => {
 	        {
 	        	$set:{
 		        	"schedules.$.movie_id": req.body.movie_id,
-		        	"schedules.$.dates": req.body.dates,
+		        	"schedules.$.startdate": req.body.startdate,
+		        	"schedules.$.enddate": req.body.enddate,
 		        	"schedules.$.status": req.body.status
 		        }
 		    },

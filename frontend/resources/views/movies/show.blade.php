@@ -57,7 +57,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td class="text-center" colspan="4"><h3>Not available yet in any theatre.</h3></td>
+                            <td class="text-center" colspan="4"><h3>Not yet available in any theatre.</h3></td>
                         </tr>
                         @endforelse
                     </tbody>
