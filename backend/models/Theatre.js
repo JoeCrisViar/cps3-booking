@@ -28,6 +28,7 @@ const TheatreSchema = new Schema({
 			},
 			startdate: String,
 			enddate: String,
+			times:[String],
 			status: {
 				type: String,
 				default: "Coming Soon" /*Showing, Coming Soon, Not Available*/

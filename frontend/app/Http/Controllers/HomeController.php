@@ -24,38 +24,24 @@ class HomeController extends Controller
         return view('home', compact('movies'));
     }
 
-    public function checkout($theatre_id, $movie_id)
+    public function checkout($theatre_id, $movie_id, $screen_id)
     {
 
+    	/*Theaters*/
+    	$client1 = new Client();
 
-    	if ($theatre_id == 1) {
-    	
-	    	/*Theaters*/
-	    	$client1 = new Client();
+        $response1 = $client1->get('http://localhost:3000/api/theatres');
 
-	        $response1 = $client1->get('http://localhost:3000/api/theatres');
+        	$theatres = json_decode($response1->getBody());
+        	
+        /*Theatre*/
+    	$client4 = new Client();
 
-	        	$theatres = json_decode($response1->getBody());
-        }else{
-        	/*Theaters*/
-	    	$client1 = new Client();
+        $response4 = $client4->get('http://localhost:3000/api/theatres/' . $theatre_id);
 
-	        $response1 = $client1->get('http://localhost:3000/api/theatres');
+        	$theatre = json_decode($response4->getBody());
 
-	        	$theatres = json_decode($response1->getBody());
-	        	
-
-        	$client1 = new Client();
-
-	        $response1 = $client1->get('http://localhost:3000/api/theatres/' . $theatre_id);
-
-	        	$theatre = json_decode($response1->getBody());
-
-        }
-
-
-
-        /*Movies*/
+        /*Movie*/
         $client2 = new Client();
        
         $response2 = $client2->get('http://localhost:3000/api/movies/' . $movie_id);
@@ -63,18 +49,30 @@ class HomeController extends Controller
         	$movie = json_decode($response2->getBody());
 
 
+        /*Screen*/
+
+        $client5 = new Client();
+
+        $response5 = $client5->get('http://localhost:3000/api/theatres/' . $theatre_id . '/screen/' . $screen_id);
+
+            $screen = json_decode($response5->getBody());    
+
+            // dd($screen);
+
         if ($theatre_id == 1) {
-        	
-        	return view('checkout', compact('theatres', 'movie'));
+
+            return view('checkout', compact('theatres', 'theatre', 'movie', 'screen'));
         
         }else{
         	
+            /*Schedules*/
         	$client3 = new Client();
 
         	$response3 = $client3->get('http://localhost:3000/api/theatres/' . $theatre_id . '/schedule');
 
         		$schedules = json_decode($response3->getBody());
 
+            /*DateRange*/   
             foreach($schedules as $schedule){
 
                 $begin = new DateTime($schedule->startdate);
@@ -83,9 +81,16 @@ class HomeController extends Controller
 
                 $interval = new DateInterval('P1D');
                 $daterange = new DatePeriod($begin, $interval ,$end);
-            }	
-        
-        	return view('checkout', compact('theatres', 'theatre', 'movie', 'schedules', 'daterange'));
+            /*Times*/    
+                foreach ($schedule->times as $index => $time) {
+                    $times[$index] = $time;
+
+                }
+            }
+                
+            
+
+        	return view('checkout', compact('theatres', 'theatre', 'movie', 'schedules','screen' , 'daterange', 'times'));
         }
         
 

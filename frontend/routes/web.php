@@ -15,7 +15,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/checkout/{theatre_id}/{movie_id}', 'HomeController@checkout')->name('checkout');
+Route::get('/checkout/{theatre_id}/movie/{movie_id}/screen/{screen_id}', 'HomeController@checkout')->name('checkout');
 
 // Route::get('/checkout/{theatre_id}/{movie_id}', 'HomeController@checkout2')->name('checkout2');    
 

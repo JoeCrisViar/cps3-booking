@@ -7,6 +7,9 @@ use GuzzleHttp\Client;
 use Session;
 use GuzzleHttp\HandlerStack;
 use GuzzleRetry\GuzzleRetryMiddleware;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 
 class TheatresController extends Controller
 {
@@ -360,14 +363,21 @@ class TheatresController extends Controller
 
     // Store Schedules
     public function store_schedule(Request $request, $theatre_id){
-        // Making a client request by creating new instance of client
+        
+        $dateTime = new DateTime($request->endDate);
+        
+        $date = $dateTime->format('n/j/Y');
+        
+        $time = $dateTime->format('H:i');
+
         $client = new Client();
 
         $response = $client->post("http://localhost:3000/api/theatres/" . $theatre_id . "/schedule", [
             'json' => [
                     "movie_id" => $request->movie_id,
                     "startdate" => $request->startDate,
-                    "enddate" => $request->endDate,
+                    "enddate" => $date,
+                    "times" => $time,
                     "status" => $request->status
                 ],
 

@@ -46,6 +46,16 @@
 			            </div>
 			            <div class="row">
 			                <div class="col-lg-4">
+			                    <label for="endDate">Available Time : </label>    
+			                </div>
+			                <div class="col-lg-8">
+			                	@foreach($schedule->times as $available_time)
+			                    <label for="endDate">{{ $available_time }}</label>
+			                    @endforeach    
+			                </div>
+			            </div>
+			            <div class="row">
+			                <div class="col-lg-4">
 			                    <label for="labelStatus">Status : </label>    
 			                </div>
 			                <div class="col-lg-8">

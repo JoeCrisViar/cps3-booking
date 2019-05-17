@@ -36,7 +36,8 @@
                      <label for="inputStartDate" class="sr-only">Start Date</label>
                     <!-- http://www.daterangepicker.com/#example4 -->
                     <div class="input-group mb-2">
-                        <input type="text" value="{{ isset($movie) ? date_format(date_create($movie->release_date),'m/d/Y') : '' }}" name="startDate" placeholder="Select start date..." class="form-control"/>
+                        <input type="text" value="{{ isset($movie) ? date_format(date_create($movie->release_date),'m/d/Y') : '' }}"  placeholder="Select start date..." class="form-control" disabled />
+                        <input type="hidden" value="{{ isset($movie) ? date_format(date_create($movie->release_date),'m/d/Y') : '' }}" name="startDate" placeholder="Select start date..." class="form-control"/>
                     
                         <div class="input-group-append">
                             <label class="input-group-text" for="inputGroupStartDate">Start Date</label>
@@ -73,31 +74,30 @@
 @endsection
 @section('custom_script')
 <script src="{{ asset('js/create_schedule.js') }}"></script>
-<!-- http://www.daterangepicker.com/#example4 -->
-<!-- <script>
-$(function() {
-  $('input[name="startDate"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 1901,
-    maxYear: parseInt(moment().format('YYYY'),10)
-  }, function(start, end, label) {
-    // var years = moment().diff(start, 'years');
-    // alert("You are " + years + " years old!");
-  });
-});
-</script> -->
+
 <script>
-$(function() {
-  $('input[name="endDate"]').daterangepicker({
-    singleDatePicker: true,
+// $(function() {
+//   $('input[name="endDate"]').daterangepicker({
+//     singleDatePicker: true,
+//     showDropdowns: true,
+//     minYear: 1901,
+//     maxYear: parseInt(moment().format('YYYY'),10)
+//   }, function(start, end, label) {
+//     // var years = moment().diff(start, 'years');
+//     // alert("You are " + years + " years old!");
+//   });
+// });
+
+$('input[name="endDate').daterangepicker({
+    "singleDatePicker": true,
+    "timePicker": true,
+    locale: {
+      format: 'MM/DD/YY hh:mm A'
+    },
     showDropdowns: true,
     minYear: 1901,
-    maxYear: parseInt(moment().format('YYYY'),10)
-  }, function(start, end, label) {
-    // var years = moment().diff(start, 'years');
-    // alert("You are " + years + " years old!");
-  });
+}, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD ') + ' (predefined range: ' + label + ')');
 });
 </script>
 

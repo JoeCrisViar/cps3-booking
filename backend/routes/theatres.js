@@ -52,13 +52,58 @@ router.get('/:id/seat', async (req, res) => {
 
 });
 
-// SHOW ONE
+// SHOW ONE BRANCH
 router.get('/:id', async (req, res) => {
+	let theatre_id = req.params.id;
 
-	// Requesting users using (ASYNC/AWAIT)
-	let theatre = await TheatreModel.findById(req.params.id);
-	res.send(theatre);
+	if(theatre_id == 1){
+		theatre	= { _id: theatre_id };
+		res.send(theatre);
+		
+	}else{
+	// Requesting users using (ASYNC/AWAIT)v
+	let theatre = await TheatreModel.findById(theatre_id);
+		
+		res.send(theatre);
+	}
 });
+
+
+// SHOW ONE SCREEN
+router.get('/:t_id/screen/:s_id', async (req, res) => {
+	let theatre_id = req.params.t_id;
+	let screen_id = req.params.s_id;
+
+	if(screen_id == 1){
+		screen	= { _id: screen_id };
+		res.send(screen);
+		
+	}else{
+		
+		let screen = await TheatreModel.findOne({_id: theatre_id}, (err, theatre) => {
+			if (err) {
+				console.log(err);
+				res.status(400)
+				res.json({
+					success: false,
+					err
+				})
+				res.end()
+				return
+			}
+			// console.log(theatre.screens);
+
+			let screen = theatre.screens.filter(function (screen) {
+	    		return screen._id == screen_id;
+	  		}).pop();
+
+			res.send(screen);
+	    	// theatre.screens.id(screen._id);
+		});
+		// console.log(screen);
+	}
+});
+
 
 // STORE BRANCH
 router.post('/', async (req, res) => {
@@ -112,6 +157,7 @@ router.post('/:id/schedule', auth, async (req, res) => {
 		movie_id: req.body.movie_id,
 		startdate: req.body.startdate,
 		enddate:req.body.enddate,
+		times: req.body.times,
 		status: req.body.status
 
 	});

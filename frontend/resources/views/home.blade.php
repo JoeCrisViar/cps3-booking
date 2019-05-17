@@ -3,9 +3,9 @@
 @section('content')
 <div class="row justify-content-center">
 	@forelse($movies as $index => $movie)
-		<div class="col-md-3 mb-2">
+		<div class="col-lg-3 col-md-6 mb-2">
 			<!-- style="width: 100%; height: 95%;" -->
-            <div class="card" style="width: 110%;">
+            <div class="card" style="width: 95%;">
                 <div class="card-wrapper">
                            <a href="#">
                                 <img class="card-img-top" src="https://picsum.photos/id/{{ $index+=20}}/200/300" alt="Card image cap">
@@ -22,7 +22,7 @@
                 </div>
                 <footer class="card-footer">
                     
-                        <a href="{{ route('checkout', [ 1, $movie->_id]) }}" class="btn btn-primary btn-block">Buy</a>
+                        <a href="{{ route('checkout', [ 1, $movie->_id, 1]) }}" class="btn btn-primary btn-block">Buy</a>
                    
                    
                 </footer>
